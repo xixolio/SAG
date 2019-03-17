@@ -42,14 +42,18 @@ y_train_hot_original = y_train_hot.copy()
 
 np.random.seed(42)
 if imbalance == 'undersampling':
-    len_unstable_samples = np.sum(y_train==1)
+    unstable_X = X_train[y_train==1]
+    unstable_y = y_train_hot[y_train==1]
     stable_X = X_train[y_train==0]
     stable_y = y_train_hot[y_train==0]
-    stable_index = np.random.choice(len(stable_X),len_unstable_samples, replace=False)
-    X_train = stable_X[stable_index]
-    y_train = stable_y[stable_index]
     
+    stable_index = np.random.choice(len(stable_X),len(unstable_X), replace=False)
+    stable_X = stable_X[stable_index]
+    stable_y = stable_y[stable_index]
     
+    print(len(stable_X),len(unstable_X))
+    X_train = np.concatenate((stable_X,unstable_X))
+    y_train_hot = np.concatenate((stable_y,unstable_y))
     
 
 if mode == 'FF':
