@@ -23,6 +23,7 @@ config.gpu_options.per_process_gpu_memory_fraction = 0.5#20%de la ram,
 session = tf.Session(config=config)
 
 mode = sys.argv[1]
+imbalance = sys.argv[2]
 X_train = np.loadtxt('X_train_full')
 y_train = np.loadtxt('y_train_full')
 X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.2, shuffle = False)
@@ -36,15 +37,30 @@ X_test = scalerX.transform(X_test)
 y_train_hot = to_categorical(y_train)
 y_test_hot = to_categorical(y_test)
 
+X_train_original = X_train.copy()
+y_train_hot_original = y_train_hot.copy()
+
+np.random.seed(42)
+if imbalance == 'undersampling':
+    len_unstable_samples = np.sum(y_train==1)
+    stable_X = X_train[y_train==0]
+    stable_y = y_train_hot[y_train==0]
+    stable_index = np.random.choice(len(stable_X),len_unstable_samples, replace=False)
+    X_train = stable_X[stable_index]
+    y_train = stable_y[stable_index]
+    
+    
+    
+
 if mode == 'FF':
-    layers = sys.argv[2]
+    layers = sys.argv[3]
     layers = [int(layer) for layer in layers.split(',')]
-    lr = float(sys.argv[3])
-    epochs = int(sys.argv[4])
+    lr = float(sys.argv[4])
+    epochs = int(sys.argv[5])
     
     model = FF(layers,X_train.shape[1], lr)
-    model.fit(X_train,y_train_hot,validation_data=(X_train, y_train_hot),epochs=epochs, batch_size=32, \
-                verbose=True, callbacks=[Metrics()])
+    model.fit(X_train,y_train_hot,validation_data=(X_train_original, y_train_hot_original),epochs=epochs, batch_size=32, \
+                verbose=True, callbacks=[Metrics()], shuffle=True)
 
 
 
