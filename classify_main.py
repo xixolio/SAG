@@ -41,7 +41,7 @@ X_train_original = X_train.copy()
 y_train_hot_original = y_train_hot.copy()
 
 np.random.seed(42)
-if imbalance == 'undersampling':
+if imbalance == 'downsampling':
     unstable_X = X_train[y_train==1]
     unstable_y = y_train_hot[y_train==1]
     stable_X = X_train[y_train==0]
@@ -50,6 +50,21 @@ if imbalance == 'undersampling':
     stable_index = np.random.choice(len(stable_X),int(len(unstable_X)*0.5), replace=False)
     stable_X = stable_X[stable_index]
     stable_y = stable_y[stable_index]
+    
+    print(len(stable_X),len(unstable_X))
+    X_train = np.concatenate((stable_X,unstable_X))
+    y_train_hot = np.concatenate((stable_y,unstable_y))
+    
+if imbalance == 'upsampling':
+    unstable_X = X_train[y_train==1]
+    unstable_y = y_train_hot[y_train==1]
+    stable_X = X_train[y_train==0]
+    stable_y = y_train_hot[y_train==0]
+    
+    proportion = int(len(stable_X)/len(unstable_X))
+
+    unstable_X = np.repeat(unstable_X,proportion,axis=0)
+    unstable_y = np.repeat(unstable_y,proportion,axis=0)
     
     print(len(stable_X),len(unstable_X))
     X_train = np.concatenate((stable_X,unstable_X))
