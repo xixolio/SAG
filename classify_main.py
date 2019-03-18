@@ -26,7 +26,7 @@ session = tf.Session(config=config)
 
 mode = sys.argv[1]
 imbalance = sys.argv[2]
-length = sys.argv[3]
+length = int(sys.argv[3])
 
 X_train = np.loadtxt('X_train_full')
 y_train = np.loadtxt('y_train_full')
@@ -50,12 +50,18 @@ if length > 1:
     X_train = data_to_sequences(X_train)
     y_train = y_train[length-1:]
     y_train_hot = y_train_hot[length-1:]
-    print(len(X_train))
-    print(len(y_train))
     
     X_test = data_to_sequences(X_test)
     y_test = y_test[length-1:]
     y_test_hot = y_test_hot[length-1:]
+    
+    if mode == 'FF':
+        X_train.reshape(X_train.shape[0],-1)
+        X_test.reshape(X_test.shape[0],-1)
+    
+    print(X_train.shape)
+    print(y_train.shape)
+        
     
 X_train_original = X_train.copy()
 y_train_hot_original = y_train_hot.copy()
