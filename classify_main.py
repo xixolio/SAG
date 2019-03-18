@@ -32,16 +32,16 @@ X_train = np.loadtxt('X_train_full')
 y_train = np.loadtxt('y_train_full')
 X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.2, shuffle = False)
 
-X_train = X_test
-y_train = y_test
+#X_train = X_test
+#y_train = y_test
 
 scalerX = StandardScaler().fit(X_train)
 
 X_train = scalerX.transform(X_train)
 X_test = scalerX.transform(X_test)
 
-#X_train,_,_ = standarization(X_train,500)
-#X_test,_,_ = standarization(X_test,500)
+X_train,_,_ = standarization(X_train,500)
+X_test,_,_ = standarization(X_test,500)
 
 #y_train = y_train[1:]
 #y_test = y_test[1:]
