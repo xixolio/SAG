@@ -51,7 +51,7 @@ def FF(layers,features,lr, dropout=None):
     model.compile(loss = 'categorical_crossentropy', optimizer = ad)
     return model
 
-def lstm(layers,features, length,lr):
+def LSTM_model(layers,features, length,lr):
     inputs = Input(shape=(length,features))
     
     lstm = inputs
