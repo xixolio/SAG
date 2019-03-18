@@ -16,7 +16,7 @@ import pandas as pd
 import os
 import tensorflow as tf
 
-os.environ['CUDA_VISIBLE_DEVICES']='1' # gpu='0' o gpu='1'
+os.environ['CUDA_VISIBLE_DEVICES']='0' # gpu='0' o gpu='1'
 ###################################
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True#Utiliza la memoria que necesita de manera dinamica, puede ser o no en bloque.
