@@ -32,7 +32,7 @@ X_train = np.loadtxt('X_train_full')
 y_train = np.loadtxt('y_train_full')
 X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.2, shuffle = False)
 
-X_test = X_test
+X_train = X_test
 y_train = y_test
 
 scalerX = StandardScaler().fit(X_train)
