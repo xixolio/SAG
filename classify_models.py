@@ -56,7 +56,7 @@ def LSTM(layers,features, length,lr):
     
     lstm = inputs
     for blocks in layers:
-        lstm = LSTM(blocks, kernel_initializer='glorot_uniform')(lstm)
+        lstm = LSTM(blocks)(lstm)
         
     outputs = Dense(2,activation='softmax')(lstm)
     model = Model(inputs = inputs, outputs = outputs)
