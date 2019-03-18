@@ -82,7 +82,7 @@ if mode == 'FF':
     epochs = int(sys.argv[argv_pos+2])
     
     model = FF(layers,X_train.shape[1], lr)
-    model.fit(X_train,y_train_hot,validation_data=(X_test, y_test_hot),epochs=epochs, batch_size=32, \
+    model.fit(X_test,y_test_hot,validation_data=(X_test, y_test_hot),epochs=epochs, batch_size=32, \
                 verbose=True, callbacks=[Metrics()], shuffle=True)
 
 elif mode == 'LSTM':
