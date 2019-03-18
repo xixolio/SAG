@@ -55,8 +55,16 @@ def LSTM_model(layers,features, length,lr):
     inputs = Input(shape=(length,features))
     
     lstm = inputs
-    for blocks in layers:
-        lstm = LSTM(blocks)(lstm)
+    for i in range(len(layers)):
+        
+        return_sequences = True
+        
+        if i == len(layers) - 1:
+            
+            return_sequences = False
+                   
+        lstm = LSTM(layers[i], return_sequences=return_sequences)(lstm)
+    
         
     outputs = Dense(2,activation='softmax')(lstm)
     model = Model(inputs = inputs, outputs = outputs)
