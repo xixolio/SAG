@@ -51,7 +51,7 @@ if length > 1:
     y_train = y_train[length-1:]
     y_train_hot = y_train_hot[length-1:]
     
-    X_test = data_to_sequences(X_test)
+    X_test = data_to_sequences(X_test, length)
     y_test = y_test[length-1:]
     y_test_hot = y_test_hot[length-1:]
     
