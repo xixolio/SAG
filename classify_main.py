@@ -47,7 +47,7 @@ y_train_hot = to_categorical(y_train)
 y_test_hot = to_categorical(y_test)
 
 if length > 1:
-    X_train = data_to_sequences(X_train)
+    X_train = data_to_sequences(X_train, length)
     y_train = y_train[length-1:]
     y_train_hot = y_train_hot[length-1:]
     
