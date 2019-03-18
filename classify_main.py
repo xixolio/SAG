@@ -8,7 +8,7 @@ Created on Sun Mar 17 12:59:10 2019
 import numpy as np
 from sklearn.model_selection import train_test_split
 from classify_models import Metrics, FF
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from keras.utils import to_categorical
 import sys
 import pandas as pd
@@ -46,16 +46,17 @@ y_train = np.loadtxt('y_train_full')
 X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.2, shuffle = False)
 
 
-scalerX = StandardScaler().fit(X_train)
+#scalerX = StandardScaler().fit(X_train)
+scalerX = MinMaxScaler().fit(X_train)
 
-#X_train = scalerX.transform(X_train)
-#X_test = scalerX.transform(X_test)
+X_train = scalerX.transform(X_train)
+X_test = scalerX.transform(X_test)
 
-X_train,_,_ = standarization(X_train,500)
-X_test,_,_ = standarization(X_test,500)
+#X_train,_,_ = standarization(X_train,500)
+#X_test,_,_ = standarization(X_test,500)
 
-y_train = y_train[1:]
-y_test = y_test[1:]
+#y_train = y_train[1:]
+#y_test = y_test[1:]
 y_train_hot = to_categorical(y_train)
 y_test_hot = to_categorical(y_test)
 
