@@ -39,7 +39,7 @@ def downsampling(X_train,y_train,y_train_hot):
     stable_X = X_train[y_train==0]
     stable_y = y_train_hot[y_train==0]
     
-    stable_index = np.random.choice(len(stable_X),int(len(unstable_X)*0.5), replace=False)
+    stable_index = np.random.choice(len(stable_X),int(len(unstable_X)), replace=False)
     stable_X = stable_X[stable_index]
     stable_y = stable_y[stable_index]
     

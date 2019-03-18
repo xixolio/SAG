@@ -93,7 +93,7 @@ elif mode == 'LSTM':
     epochs = int(sys.argv[argv_pos+2])
     
     model = LSTM_model(layers,X_train.shape[-1], length, lr)
-    model.fit(X_train,y_train_hot,validation_data=(X_test, y_test_hot),epochs=epochs, batch_size=32, \
+    model.fit(X_test,y_test_hot,validation_data=(X_test, y_test_hot),epochs=epochs, batch_size=32, \
                 verbose=True, callbacks=[Metrics()], shuffle=True)
 
 
