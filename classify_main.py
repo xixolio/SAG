@@ -20,7 +20,7 @@ os.environ['CUDA_VISIBLE_DEVICES']='1' # gpu='0' o gpu='1'
 ###################################
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True#Utiliza la memoria que necesita de manera dinamica, puede ser o no en bloque.
-config.gpu_options.per_process_gpu_memory_fraction = 0.5#20%de la ram,
+config.gpu_options.per_process_gpu_memory_fraction = 0.8#20%de la ram,
 session = tf.Session(config=config)
 
 
