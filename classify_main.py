@@ -8,9 +8,9 @@ Created on Sun Mar 17 12:59:10 2019
 import numpy as np
 from sklearn.model_selection import train_test_split
 from classify_models import Metrics, FF, LSTM_model
-from utils import upsampling, downsampling, data_to_sequences
+from utils import upsampling, downsampling, data_to_sequences, standarization
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from keras.utils import to_categorical, standarization
+from keras.utils import to_categorical
 import sys
 import pandas as pd
 import os
