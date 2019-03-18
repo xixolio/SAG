@@ -7,7 +7,7 @@ Created on Sun Mar 17 13:00:18 2019
 
 from keras.callbacks import Callback
 from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_score
-from keras.layers import Input, Dense, Dropout
+from keras.layers import Input, Dense, Dropout, LSTM
 from keras.models import Model
 from keras.optimizers import Adam
 import numpy as np
@@ -51,7 +51,7 @@ def FF(layers,features,lr, dropout=None):
     model.compile(loss = 'categorical_crossentropy', optimizer = ad)
     return model
 
-def LSTM(layers,features, length,lr):
+def lstm(layers,features, length,lr):
     inputs = Input(shape=(length,features))
     
     lstm = inputs

@@ -7,7 +7,7 @@ Created on Sun Mar 17 12:59:10 2019
 
 import numpy as np
 from sklearn.model_selection import train_test_split
-from classify_models import Metrics, FF, LSTM
+from classify_models import Metrics, FF, lstm
 from utils import upsampling, downsampling, data_to_sequences
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from keras.utils import to_categorical
@@ -92,7 +92,7 @@ elif mode == 'LSTM':
     lr = float(sys.argv[argv_pos+1])
     epochs = int(sys.argv[argv_pos+2])
     
-    model = LSTM(layers,X_train.shape[-1], length, lr)
+    model = lstm(layers,X_train.shape[-1], length, lr)
     model.fit(X_train,y_train_hot,validation_data=(X_test, y_test_hot),epochs=epochs, batch_size=32, \
                 verbose=True, callbacks=[Metrics()], shuffle=True)
 
