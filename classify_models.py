@@ -50,3 +50,20 @@ def FF(layers,features,lr, dropout=None):
     ad = Adam(lr = lr)    
     model.compile(loss = 'categorical_crossentropy', optimizer = ad)
     return model
+
+def LSTM(layers,features, length,lr):
+    inputs = Input(shape=(length,features))
+    
+    lstm = inputs
+    for blocks in layers:
+        lstm = LSTM(blocks, kernel_initializer='glorot_uniform')(lstm)
+        
+    outputs = Dense(2,activation='softmax')(lstm)
+    model = Model(inputs = inputs, outputs = outputs)
+    
+    ad = Adam(lr = lr)    
+    model.compile(loss = 'categorical_crossentropy', optimizer = ad)
+    return model
+        
+        
+    
