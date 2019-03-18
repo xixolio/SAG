@@ -46,8 +46,7 @@ y_train = np.loadtxt('y_train_full')
 X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.2, shuffle = False)
 
 
-#scalerX = StandardScaler().fit(X_train)
-scalerX = MinMaxScaler().fit(X_train)
+scalerX = StandardScaler().fit(X_train)
 
 X_train = scalerX.transform(X_train)
 X_test = scalerX.transform(X_test)
