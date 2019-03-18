@@ -56,8 +56,8 @@ if length > 1:
     y_test_hot = y_test_hot[length-1:]
     
     if mode == 'FF':
-        X_train.reshape(X_train.shape[0],-1)
-        X_test.reshape(X_test.shape[0],-1)
+        X_train = X_train.reshape(X_train.shape[0],-1)
+        X_test = X_test.reshape(X_test.shape[0],-1)
     
     print(X_train.shape)
     print(y_train.shape)
@@ -71,7 +71,7 @@ np.random.seed(42)
 if imbalance == 'upsampling':
     X_train, y_train_hot = upsampling(X_train, y_train, y_train_hot)
 elif imbalance == 'downsampling':
-    X_train, y_train_hot = upsampling(X_train, y_train, y_train_hot)
+    X_train, y_train_hot = downsampling(X_train, y_train, y_train_hot)
 
 if mode == 'FF':
     
