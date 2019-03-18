@@ -54,6 +54,8 @@ scalerX = StandardScaler().fit(X_train)
 X_train,_,_ = standarization(X_train,100)
 X_test,_,_ = standarization(X_test,100)
 
+y_train = y_train[1:]
+y_test = y_test[1:]
 y_train_hot = to_categorical(y_train)
 y_test_hot = to_categorical(y_test)
 
