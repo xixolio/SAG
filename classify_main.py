@@ -32,6 +32,8 @@ X_train = np.loadtxt('X_train_full')
 y_train = np.loadtxt('y_train_full')
 X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.2, shuffle = False)
 
+X_test = X_test
+y_train = y_test
 
 scalerX = StandardScaler().fit(X_train)
 
@@ -82,7 +84,7 @@ if mode == 'FF':
     epochs = int(sys.argv[argv_pos+2])
     
     model = FF(layers,X_train.shape[1], lr)
-    model.fit(X_test,y_test_hot,validation_data=(X_test, y_test_hot),epochs=epochs, batch_size=32, \
+    model.fit(X_train,y_train_hot,validation_data=(X_train_original, y_train_hot_original),epochs=epochs, batch_size=32, \
                 verbose=True, callbacks=[Metrics()], shuffle=True)
 
 elif mode == 'LSTM':
