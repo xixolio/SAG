@@ -11,7 +11,7 @@ from classify_models import Metrics, FF
 from sklearn.preprocessing import StandardScaler
 from keras.utils import to_categorical
 import sys
-
+import pandas as pd
 import os
 import tensorflow as tf
 
@@ -22,6 +22,23 @@ config.gpu_options.allow_growth = True#Utiliza la memoria que necesita de manera
 config.gpu_options.per_process_gpu_memory_fraction = 0.5#20%de la ram,
 session = tf.Session(config=config)
 
+def standarization(data, past_horizon):
+    #print(len(data))
+    data = pd.DataFrame(data.copy())
+    mean_values = pd.DataFrame()
+    std_values = pd.DataFrame()
+    for col in range(data.shape[1]):
+        mean_values[col] = data[col].rolling(past_horizon,min_periods=1).mean()
+        std_values[col] = data[col].rolling(past_horizon,min_periods=1).std()
+        std_values[std_values[col] == 0] = 1
+        data[col] = (data[col] - mean_values[col])/std_values[col]
+    
+    data = data.dropna()
+    mean_values = mean_values[1:]
+    std_values = std_values[1:]
+
+    return data.values, mean_values.values, std_values.values
+
 mode = sys.argv[1]
 imbalance = sys.argv[2]
 X_train = np.loadtxt('X_train_full')
@@ -31,8 +48,11 @@ X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=
 
 scalerX = StandardScaler().fit(X_train)
 
-X_train = scalerX.transform(X_train)
-X_test = scalerX.transform(X_test)
+#X_train = scalerX.transform(X_train)
+#X_test = scalerX.transform(X_test)
+
+X_train,_,_ = standarization(X_train,100)
+X_test,_,_ = standarization(X_test,100)
 
 y_train_hot = to_categorical(y_train)
 y_test_hot = to_categorical(y_test)
